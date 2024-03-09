@@ -1,20 +1,61 @@
-// Get a reference to the #add-employees-btn element
 const addEmployeesBtn = document.querySelector('#add-employees-btn');
 
-// Collect employee data
-const collectEmployees = function() {
-  // TODO: Get user input to create and return an array of employee objects
+//*This Section automatically populates the pre determined employee names and salary and adding them to employeesArray.*\\
+let employeesArray = [
+  { 
+    firstName: 'Luis', 
+    lastName: 'Aldaz', 
+    salary: 50500 
+  },
+  { 
+    firstName: 'Jack', 
+    lastName: 'Rogers', 
+    salary: 52400
+  },
+
+]
+//*This Section is for the function of collecting new employee names and salary and adding them to employeesArray.*\\
+const collectEmployees = function(){
+  let continueAdding = true;
+  while (continueAdding) {
+    const firstName = prompt('Enter employee first name:');
+    const lastName = prompt('Enter employee last name:');
+    let salary = parseFloat(prompt('Enter employee salary:'));
+    if (isNaN(salary) || salary < 0) {
+    salary = 0;
+    }
+     employeesArray.push({firstName, lastName, salary});
+     continueAdding = confirm('Do you want to add another employee?');
+  }
+
+  return employeesArray;
 }
 
-// Display the average salary
+
+
+//*This Section is for the function of getting the average salary and number of employees and then displaying the number of employees and average salary of posted employees in the console when the code is run. *\\
 const displayAverageSalary = function(employeesArray) {
-  // TODO: Calculate and display the average salary
+  const numberOfEmployees = employeesArray.length;
+  
+  if (numberOfEmployees > 0) {
+    const totalSalary = employeesArray.reduce((acc, employeesArray) => acc + employeesArray.salary, 0);
+    const averageSalary = totalSalary / numberOfEmployees;
+    console.log(`The average salary between our ${numberOfEmployees} employee(s) is $${averageSalary.toFixed(2)}.`);
+  } 
+}
+  
+
+
+//*This Section is for the function of creating a random drawing and the computer choose a random employee and diplay the winner in the console when the code is run. *\\
+const getRandomEmployee = function(employeesArray) {
+  const randomIndex = Math.floor(Math.random() * employeesArray.length);
+  const randomEmployee = employeesArray[randomIndex];
+  console.log(`Congratulations to ${randomEmployee.firstName} ${randomEmployee.lastName}, our random drawing winner!`);
+
+  return randomEmployee;
 }
 
-// Select a random employee
-const getRandomEmployee = function(employeesArray) {
-  // TODO: Select and display a random employee
-}
+
 
 /*
   ====================
@@ -77,6 +118,7 @@ const trackEmployeeData = function() {
   });
 
   displayEmployees(employees);
+  
 }
 
 // Add event listener to 'Add Employees' button
